@@ -18,7 +18,7 @@ Prefer these bundled entrypoints over any same-named global skills. Resolve path
 
 ## User-selected workflow
 
-The owner's cross-project preference has three human checkpoints: requirement agreement, ticket-breakdown approval, and final PR-merge approval. Draft the breakdown yourself, but wait for the user to confirm it before publishing its tickets or starting dependent implementation. After implementation, CI, review, and repairs are complete, present the actual PR and wait for merge confirmation. Technical test-plan decisions remain delegated to the agent.
+The owner's cross-project preference has three human checkpoints: requirement agreement, ticket-breakdown approval, and final PR-merge approval. Draft the breakdown yourself, but wait for the user to confirm it before publishing its tickets or starting dependent implementation. After implementation, CI, any required review, and repairs are complete, present the actual PR and wait for merge confirmation. Technical test-plan decisions remain delegated to the agent.
 
 After verifying the PR is merged, automatically delete its remote and local source branches under the cleanup rules in [delivery.md](references/delivery.md). The owner has authorized this cleanup; it does not add a fourth confirmation checkpoint.
 
@@ -87,27 +87,30 @@ Only work tickets included in the user's agreed delivery scope. A request to imp
 
 Read [references/delivery.md](references/delivery.md) when entering branch/PR creation, implementation, CI repair, review, or merge. It defines the evidence needed for each gate and how to resume after changes.
 
+Code review is conditional: skip the automatic `code-review` stage for small, bounded feature changes and UI-only changes. Classify the actual diff using the criteria in the delivery reference. This exemption does not skip relevant checks, CI, or user merge confirmation. An explicit request to review still runs the review.
+
 The delivery cycle is:
 
 ```text
 requirement agreement -> spec draft -> similar-issue check -> publish spec
   -> proposed tickets -> USER CONFIRMS SPLIT -> similar-issue check
   -> publish tickets -> branch -> implementation + draft PR
-  -> local checks -> push -> CI -> code-review
-  -> findings? fix -> checks -> push -> CI -> code-review
+  -> local checks -> push -> CI -> classify review requirement
+  -> small feature or UI-only? skip review : code-review
+  -> findings? fix -> checks -> push -> CI -> reclassify/review as needed
   -> ready PR + evidence -> USER CONFIRMS MERGE -> guarded merge
   -> verify MERGED -> delete eligible remote/local source branches
 
 similar-issue check -> plausible overlap? -> USER DECIDES before publishing
 ```
 
-Create a draft PR as soon as the branch has a meaningful checked commit; do not manufacture an empty commit to create one before development. Review follows passing CI. Every fix that changes the PR head must pass CI and review again.
+Create a draft PR as soon as the branch has a meaningful checked commit; do not manufacture an empty commit to create one before development. Required review follows passing CI. Every fix that changes the PR head must pass CI and have its review eligibility reassessed; run review again when the updated diff requires it.
 
 ## Resume and finish
 
 Keep a compact checkpoint at stage changes and before a handoff in the task's durable context or existing local scratch convention. Record the requested outcome and stopping point, requirement agreement, similar-issue search candidates and user decisions or pending question, the approved ticket breakdown or pending split question, source spec, ticket links/dependencies, repository/worktree, branch/base, PR URL, current head SHA, CI results/run links, reviewed head/base and findings, merge confirmation for that PR/head or its pending question, and the next action or blocker. Link authoritative artifacts instead of copying their full bodies. Keep credentials out of checkpoints.
 
-On resume, re-read live tracker/PR/git state before trusting a checkpoint. Reuse existing artifacts and reconcile ambiguous mutations before retrying. A changed head invalidates previous head-specific CI and review evidence; a changed review base requires reassessing the diff and integration checks.
+On resume, re-read live tracker/PR/git state before trusting a checkpoint. Reuse existing artifacts and reconcile ambiguous mutations before retrying. A changed head invalidates previous head-specific CI, review evidence, and review exemption; reassess the new diff. Record either the review result or `skipped: small feature` / `skipped: UI-only` with the evaluated head/base and a short reason. A changed review base requires reassessing the diff and integration checks.
 
 Continue within the active task while useful progress is possible. This skill is agent guidance, not a persistent scheduler: do not promise that it keeps running after the task ends, create background automations without a scheduling request, or create new user-visible tasks without an explicit request. Use bounded waits while monitoring CI and explain actual blockers with the next resumable action.
 

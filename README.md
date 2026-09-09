@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A Codex skill bundle that carries software requests from clarification to a reviewed pull request, with human confirmation at the decisions that matter.
+A Codex skill bundle that carries software requests from clarification to a checked pull request, with review for changes that need it and human confirmation at key decisions.
 
 Dev Flow routes the request, coordinates five skills, and resumes from the current stage. Project commands, architecture, and testing conventions come from your repository's `AGENTS.md` and existing configuration.
 
@@ -13,7 +13,7 @@ Request -> intent routing -> grilling -> confirm requirements
   -> spec draft -> similar-issue check -> publish spec
   -> proposed tickets -> CONFIRM BREAKDOWN -> similar-issue check
   -> publish tickets -> branch -> implementation + draft PR
-  -> local checks -> CI -> code review -> fixes -> CI + review again
+  -> local checks -> CI -> review if required -> fixes -> recheck
   -> finished PR -> CONFIRM MERGE -> merge
   -> verify merge -> clean up source branches
 ```
@@ -24,11 +24,19 @@ There are three human checkpoints:
 | --- | --- |
 | Requirements | The intended behavior, acceptance criteria, and scope. An already approved requirement can be reused. |
 | Ticket breakdown | The proposed slices and dependencies, before publishing tickets or starting their implementation. |
-| Merge | The completed PR after checks, review, and repairs, before merging or entering a merge queue. |
+| Merge | The completed PR after checks, any required review, and repairs, before merging or entering a merge queue. |
 
 There is an additional conditional checkpoint before publishing either a spec issue or a ticket: the agent searches the current repository's open and closed issues for similar features. If it finds a plausible overlap, it presents links, shared behavior, and differences, then waits for you to choose reuse, extension, a separate issue, or no new issue. Approving the requirements or breakdown does not resolve that overlap. If the search cannot be completed, the draft remains unpublished.
 
-Between checkpoints, the agent handles technical testing decisions, implementation, CI diagnosis, and review fixes. A changed PR head must pass fresh checks and review and receive a new merge confirmation.
+Between checkpoints, the agent handles technical testing decisions, implementation, CI diagnosis, and review fixes. A changed PR head must pass fresh checks, have its review requirement reassessed, and receive a new merge confirmation.
+
+## When Review Is Skipped
+
+Small, bounded feature changes and UI-only changes skip automatic code review. UI-only work includes layout, styling, copy, icons, responsive behavior, and presentation interactions, regardless of file count. The agent records the reason for skipping review and proceeds to merge confirmation after the necessary checks and CI pass.
+
+Changes to backend behavior, shared contracts, permissions, auth, billing, persistence, or data deletion do not become UI-only just because they touch a component. Substantive mixed changes and broad refactors still receive review. An explicit request to review always takes precedence over the exemption.
+
+Skipping code review does not skip CI, behavior verification, UI visual/interaction checks, provider-required approvals, or your merge confirmation.
 
 After a verified merge, the agent automatically deletes eligible remote and local source branches without another confirmation. It retains branches with new commits, dependent PRs, or active worktree use and reports pending cleanup. It never deletes the target/default/protected branch.
 
@@ -46,7 +54,7 @@ The four companion skills are adapted from [Matt Pocock's skills](https://github
 
 ## Install
 
-Use Codex with local skills, Git, an authenticated issue/PR connector or CLI, and subagent support for independent review. Install the target project's normal dependencies separately.
+Use Codex with local skills, Git, and an authenticated issue/PR connector or CLI. Subagent support is needed when independent review is required; exempt changes do not need it. Install the target project's normal dependencies separately.
 
 Keep this entire repository together. The entrypoint loads companion skills using paths within the bundle; copying only `skills/dev-flow` is insufficient.
 
@@ -86,7 +94,7 @@ The router respects the requested stopping point. Discussion-only requests stay 
 
 - A skill guides an active agent task. It is not a scheduler or a background service that keeps working after the task ends.
 - Missing access, required CI, or provider approvals remain explicit blockers. Agent review does not replace required human or Code Owner approval.
-- CI and review must apply to the current PR head. Empty check lists, stale results, and unresolved blocking findings do not permit merging.
+- CI and the review result or exemption must apply to the current PR head. Empty check lists, stale results, and unresolved blocking findings do not permit merging.
 - The workflow records progress and approval state so it can resume without duplicating issues or PRs.
 - Runtime tools enforce actions. These Markdown instructions do not install branch protection or guarantee that a model follows every instruction.
 
