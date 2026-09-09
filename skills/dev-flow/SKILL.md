@@ -24,7 +24,7 @@ After verifying the PR is merged, automatically delete its remote and local sour
 
 Apply this preference only to work routed into delivery below. Installing or discussing this skill does not authorize delivering arbitrary project work. A request to stop at a spec, issue, local edit, PR, or review takes precedence. Between the three checkpoints, proceed with authorized issues, commits, pushes, PRs, checks, and fixes without repeated permission requests. Silence, a timeout, requirement agreement, ticket approval, and green CI are not merge approval. New product scope or a newly exposed material tradeoff returns to the user.
 
-There is also a conditional confirmation before issue publication: if the current repository already has a potentially similar feature issue, show the candidates and wait for the user to choose how to proceed. Requirement or ticket-breakdown approval does not decide that overlap.
+There is also a conditional confirmation after the spec draft: check the current repository once for similar feature issues. If plausible overlaps exist, show the candidates and wait for the user's decision before publishing the spec. Ticket decomposition and publication reuse this result without another similarity check.
 
 ## Route intent before acting
 
@@ -63,23 +63,23 @@ End with a concise proposed requirement and obtain agreement before delivery. An
 
 Read `to-spec` and synthesize the agreed requirement. Decide the testing approach using existing behavior boundaries; the owner has delegated this technical decision. Include observable acceptance criteria and distinguish known requirements from assumptions. Size the spec to the work without inventing scope to fill the template.
 
-For a new feature, publish the spec as the parent issue on the resolved tracker. Reuse an existing approved spec/parent. For a small fix already fully specified in an issue, use that issue as the spec and executable ticket rather than creating duplicate containers. A planning-only request remains at its requested output boundary.
+For a new feature, draft the spec, complete the single similarity check below, then publish it as the parent issue on the resolved tracker. Reuse an existing approved spec/parent. For a small fix already fully specified in an issue, use that issue as the spec and executable ticket rather than creating duplicate containers. A planning-only request remains at its requested output boundary.
 
-### Check for similar issues before publication
+### Check for similar issues after the spec draft
 
-Before creating any spec issue or implementation ticket, search issues in the current target repository using the intended behavior, domain terms, synonyms, and affected component. Check open and closed issues, follow pagination when relevant, and read candidate bodies and relevant comments rather than judging only their titles. A closed issue may document an implemented, rejected, or unfinished attempt. Distinguish the known parent/approved sibling tickets from an actual competing or overlapping request.
+The `to-spec` stage owns this check. Once the spec draft is ready, search issues in the current target repository using its intended behavior, domain terms, synonyms, and affected component. Check open and closed issues, follow pagination when relevant, and read candidate bodies and relevant comments rather than judging only their titles. A closed issue may document an implemented, rejected, or unfinished attempt. If this spec already has a recorded check and resolved user decision, reuse them rather than searching again.
 
 For each plausible overlap, present its title, URL, status, shared behavior, and material differences from the proposed issue. Recommend a path and wait for the user to choose: reuse the existing issue, extend it, create a separate scoped issue, or drop the duplicate. Do not create, modify, close, or link the overlapping issues as a substitute for that decision. Continue unrelated preparation while the affected publication is pending.
 
-Record the user's choice with the specific candidate issues and proposed scope. Apply it without asking again for an unchanged result; newly discovered overlap or changed scope requires renewed confirmation. If the user supplied an existing issue to implement, that identifies the chosen issue and does not require asking permission to reuse it. If search is unavailable or incomplete, do not claim there are no similar issues: retain a local draft and report the missing access or results.
+Record the search result and any user choice with the spec's scope. Carry that decision through ticket decomposition and publication without rechecking per ticket. If the user supplied an existing issue to implement, that identifies the chosen issue and does not require asking permission to reuse it. If search is unavailable or incomplete, do not claim there are no similar issues: retain the spec draft and report the missing access or results.
 
-Search before the first issue write and refresh before publication if relevant tracker state or scope changed. During an approved ticket batch, check each distinct proposed behavior while excluding the already approved parent/siblings as duplicate candidates. After an ambiguous creation timeout, reconcile that exact operation first; a confirmed issue just created by this task is recovery, not a fresh similarity decision.
+A material requirement expansion returns to the spec stage; it does not add a second check to ticket publication. After an ambiguous issue-creation timeout, reconcile that exact operation to avoid duplicate writes. This is operation recovery, not another feature-similarity check or user checkpoint.
 
 ### Tickets
 
 Read `to-tickets`; draft independently verifiable slices and real blocking dependencies. Present the proposed ticket titles, delivered behavior, acceptance criteria, and blockers, then explicitly wait for the user's approval before publishing the ticket set or starting its implementation. A small change can have one ticket. Follow the companion's expand/migrate/contract approach when a broad migration cannot be sliced vertically. An already approved breakdown can be reused; material changes to its scope, granularity, or dependencies require fresh confirmation. A request to implement one existing ticket does not require inventing a new split to approve.
 
-Apply the similar-issue check above before publication, and wait for a user decision on plausible overlaps. Once the breakdown and any overlaps are resolved, publish in dependency order and preserve returned identifiers. Use native dependency relationships when available; otherwise link blockers explicitly. Use the tracker's actual label vocabulary and do not create labels or change tracker configuration just because a template names one. During ticket publication, preserve the parent as required by `to-tickets`.
+Once the user approves the breakdown, publish in dependency order and preserve returned identifiers. Reuse the spec-stage similarity result and user decision; do not run another similarity search before creating tickets. Use native dependency relationships when available; otherwise link blockers explicitly. Use the tracker's actual label vocabulary and do not create labels or change tracker configuration just because a template names one. During ticket publication, preserve the parent as required by `to-tickets`.
 
 Only work tickets included in the user's agreed delivery scope. A request to implement one ticket does not authorize implementing every sibling. For an entire feature, work unblocked tickets one at a time and continue until that scope is complete. A closed blocker counts as satisfied only when the required behavior actually landed; a cancelled issue may still block its dependents.
 
@@ -93,7 +93,7 @@ The delivery cycle is:
 
 ```text
 requirement agreement -> spec draft -> similar-issue check -> publish spec
-  -> proposed tickets -> USER CONFIRMS SPLIT -> similar-issue check
+  -> proposed tickets -> USER CONFIRMS SPLIT
   -> publish tickets -> branch -> implementation + draft PR
   -> local checks -> push -> CI -> classify review requirement
   -> small feature or UI-only? skip review : code-review

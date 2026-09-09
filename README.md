@@ -11,7 +11,7 @@ Dev Flow routes the request, coordinates five skills, and resumes from the curre
 ```text
 Request -> intent routing -> grilling -> confirm requirements
   -> spec draft -> similar-issue check -> publish spec
-  -> proposed tickets -> CONFIRM BREAKDOWN -> similar-issue check
+  -> proposed tickets -> CONFIRM BREAKDOWN
   -> publish tickets -> branch -> implementation + draft PR
   -> local checks -> CI -> review if required -> fixes -> recheck
   -> finished PR -> CONFIRM MERGE -> merge
@@ -26,7 +26,7 @@ There are three human checkpoints:
 | Ticket breakdown | The proposed slices and dependencies, before publishing tickets or starting their implementation. |
 | Merge | The completed PR after checks, any required review, and repairs, before merging or entering a merge queue. |
 
-There is an additional conditional checkpoint before publishing either a spec issue or a ticket: the agent searches the current repository's open and closed issues for similar features. If it finds a plausible overlap, it presents links, shared behavior, and differences, then waits for you to choose reuse, extension, a separate issue, or no new issue. Approving the requirements or breakdown does not resolve that overlap. If the search cannot be completed, the draft remains unpublished.
+After the spec draft, the agent checks the current repository's open and closed issues once for similar features. If it finds a plausible overlap, it presents links, shared behavior, and differences, then waits for you to choose reuse, extension, a separate issue, or no new issue before publishing the spec. Ticket decomposition and publication reuse that decision without a second similarity check. If the search cannot be completed, the spec draft remains unpublished.
 
 Between checkpoints, the agent handles technical testing decisions, implementation, CI diagnosis, and review fixes. A changed PR head must pass fresh checks, have its review requirement reassessed, and receive a new merge confirmation.
 

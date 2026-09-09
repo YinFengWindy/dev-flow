@@ -19,7 +19,7 @@ Adaptations in this package:
 - Discover the project's tracker without an external setup skill.
 - Under the owner's `dev-flow` preference, delegate technical testing decisions after requirement agreement. Preserve explicit user confirmation for ticket breakdown and require a separate final PR-merge confirmation after CI and review.
 - Honor planning-only boundaries and reuse existing issues.
-- Before publishing specs or tickets, search the target repository for similar issues and require a user decision when a plausible overlap exists.
+- Check similar issues once after the spec draft and require a user decision when a plausible overlap exists. Ticket publication reuses this decision without a second search.
 - Move explicit-only invocation policy to `agents/openai.yaml` for the spec and ticket skills.
 - The latest upstream ticket skill no longer forces an external implementation skill or context reset. `dev-flow` owns the next delivery stage.
 
