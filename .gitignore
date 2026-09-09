@@ -5,3 +5,4 @@ __pycache__/
 .scratch/
 .env
 .env.*
+node_modules/

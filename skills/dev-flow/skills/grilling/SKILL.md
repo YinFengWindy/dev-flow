@@ -3,7 +3,7 @@ name: grilling
 description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
 ---
 
-Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../dev-flow/SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
+Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../../SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 

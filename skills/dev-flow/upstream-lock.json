@@ -1,6 +1,12 @@
 {
   "repository": "https://github.com/mattpocock/skills",
   "ref": "main",
+  "workflowReference": {
+    "repository": "https://github.com/tt-a1i/matt-skills-with-to-goal",
+    "commit": "974c932292f0c7cca6481ea8029c17a7dd91b063",
+    "paths": ["skills/engineering/to-spec/SKILL.md", "skills/engineering/to-goal/SKILL.md", "skills/engineering/spec-executor/SKILL.md"],
+    "use": "Adapted readiness markers, optional execution contracts, and evidence receipts"
+  },
   "commit": "3cca18b368ae95cdbdebbff572ccafa662551015",
   "retrievedOn": "2026-09-09",
   "files": [

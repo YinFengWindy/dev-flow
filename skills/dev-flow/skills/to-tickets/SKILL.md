@@ -3,7 +3,7 @@ name: to-tickets
 description: Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (edges as text in one file per ticket locally, or native blocking links on a real tracker).
 ---
 
-Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../dev-flow/SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
+Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../../SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
 
 # To Tickets
 

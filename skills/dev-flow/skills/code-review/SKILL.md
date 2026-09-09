@@ -3,7 +3,7 @@ name: code-review
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
-Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../dev-flow/SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
+Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../../SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
 
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 

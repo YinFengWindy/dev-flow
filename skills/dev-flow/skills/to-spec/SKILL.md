@@ -3,7 +3,7 @@ name: to-spec
 description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
 ---
 
-Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../dev-flow/SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
+Adapted from the pinned Matt Pocock upstream version recorded in [source notes](../../THIRD_PARTY_NOTICES.md). When called by [dev-flow](../../SKILL.md), use its agreed scope, supplied tracker/spec context, delegated technical decisions, and requested stopping point. Independent invocation retains the confirmation steps below. Reading a skill does not itself authorize publishing, fixing, or merging.
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
@@ -74,3 +74,5 @@ A description of the things that are out of scope for this spec.
 Any further notes about the feature.
 
 </spec-template>
+
+4. Mark the final agreed source using the `SPEC READY` format in [execution context](../../references/execution.md). This is an index into the approved spec, not a new specification or permission to implement before ticket-breakdown approval. If a material product decision is missing, report `SPEC NOT READY` and the missing decision rather than guessing.

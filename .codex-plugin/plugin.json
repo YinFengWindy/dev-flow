@@ -1,7 +1,7 @@
 {
   "name": "dev-flow",
-  "version": "0.1.0",
-  "description": "Requirement routing and delivery through issues, CI, review, and merge, with four bundled Matt Pocock skills adapted for Codex.",
+  "version": "0.2.0",
+  "description": "An npx-installable development workflow with delegated implementation, conditional review, human checkpoints, and bundled companion skills.",
   "author": {
     "name": "YinFengWindy",
     "url": "https://github.com/YinFengWindy"
@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "Dev Flow",
     "shortDescription": "From requirements to checked and confirmed PR merges.",
-    "longDescription": "Routes intent and coordinates requirement agreement, specs, tickets, implementation, CI, conditional review, repairs, and merge. Small feature and UI-only changes skip automatic review. Waits for user confirmation of ticket breakdown and final PR merge. Includes four companion skills adapted from a pinned upstream Matt Pocock revision. Project rules remain in AGENTS.md.",
+    "longDescription": "Routes intent, delegates implementation and required independent review to subagents, and handles CI, repairs, confirmed merge, and cleanup. Small feature and UI-only changes skip automatic review. Includes four companion skills, optional execution contracts, and evidence receipts in one installable directory. Project rules remain in AGENTS.md.",
     "developerName": "YinFengWindy",
     "category": "Coding",
     "capabilities": [],

@@ -12,6 +12,7 @@ Read this reference when developing or landing work under `dev-flow`. Apply the 
 
 ## Implementation and CI
 
+- Follow [delegation](delegation.md): the implementation subagent makes scoped code changes and runs relevant local checks; the parent verifies its diff and evidence, then handles commits, PRs, and CI. Return concrete repairs to the implementer and wait for all writers to finish before Git mutations or review.
 - Implement the ticket against its acceptance criteria and repo conventions. Run checks required by the repo and meaningful tests for the affected behavior. Do not weaken a test or required check to make a gate green.
 - Inspect workflows, scripts, and remote branch/ruleset requirements to determine expected CI. Required policy checks and the repo's documented delivery gates both matter, even if branch protection is absent.
 - Record the pushed PR head SHA. Verify CI belongs to that head, or to the provider's corresponding PR merge candidate; a successful run on the base branch or previous head does not count.
@@ -32,13 +33,13 @@ After inspecting the actual PR diff, skip the automatic `code-review` stage when
 
 A mixed change may still qualify as a small feature when its entire behavior is bounded and none of the substantive cases above applies. Judge impact and behavior, not file count. Decide from repository evidence without adding a routine user confirmation. If the diff cannot be classified confidently, run review and briefly explain why.
 
-Record `skipped: small feature` or `skipped: UI-only`, the short reason, and the head/base evaluated. Do not invoke review subagents for an exempt change or label a skipped review as passed. An exempt change needs no subagent capability. Reassess eligibility after each new commit or changed base so later backend or high-impact changes do not inherit an obsolete exemption.
+Record `skipped: small feature` or `skipped: UI-only`, the short reason, and the head/base evaluated. Do not invoke review subagents for an exempt change or label a skipped review as passed. An exempt change needs no review subagent capability; implementation still follows the delegation policy with its disclosed local fallback. Reassess eligibility after each new commit or changed base so later backend or high-impact changes do not inherit an obsolete exemption.
 
 Review exemption changes only this agent review stage. Run the repository's applicable checks and CI, verify the affected behavior, and keep the user merge checkpoint. For UI changes, validate the rendered result and relevant interactions using the repository's existing visual/accessibility practices. Required provider approvals and protections still apply.
 
 ## Code review after CI (when required)
 
-1. Once expected CI passes, pin the actual PR base commit and current head SHA. Read the bundled [code-review](../../code-review/SKILL.md) and supply that fixed point explicitly, plus the originating spec/ticket and applicable repo standards. This prevents a redundant question about the comparison ref.
+1. Once expected CI passes, pin the actual PR base commit and current head SHA. Read the bundled [code-review](../skills/code-review/SKILL.md) and supply that fixed point explicitly, plus the originating spec/ticket and applicable repo standards. This prevents a redundant question about the comparison ref.
 2. If `docs/agents/issue-tracker.md` is absent, pass the resolved tracker access method and fetched issue/spec directly. Missing setup prose is not grounds to invoke a nonexistent setup command or skip the spec review.
 3. Follow the companion skill's independent Standards and Spec reviews using the available subagent tools. Give reviewers the same pinned diff and acceptance criteria. Preserve the two axes in the report. If independent agents are unavailable, disclose that limitation; do not report the requested independent review as completed or silently pass its merge gate.
 4. Assess every finding against code and requirements. Fix real defects and material spec/standard violations within scope. Record a concrete reason for a false positive or a nonblocking style suggestion; do not treat every smell heuristic as a mandatory refactor. An unresolved correctness defect, missing acceptance criterion, or disputed blocking finding prevents presenting the PR as ready to merge.

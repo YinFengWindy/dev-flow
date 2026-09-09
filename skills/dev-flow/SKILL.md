@@ -9,12 +9,14 @@ Orchestrate the companion skills bundled in this plugin. Read each relative entr
 
 | Stage | Bundled entrypoint |
 | --- | --- |
-| Requirement clarification | [grilling](../grilling/SKILL.md) |
-| Spec synthesis | [to-spec](../to-spec/SKILL.md) |
-| Ticket decomposition | [to-tickets](../to-tickets/SKILL.md) |
-| Independent Standards and Spec review | [code-review](../code-review/SKILL.md) |
+| Requirement clarification | [grilling](skills/grilling/SKILL.md) |
+| Spec synthesis | [to-spec](skills/to-spec/SKILL.md) |
+| Ticket decomposition | [to-tickets](skills/to-tickets/SKILL.md) |
+| Independent Standards and Spec review | [code-review](skills/code-review/SKILL.md) |
 
 Prefer these bundled entrypoints over any same-named global skills. Resolve paths from the actual plugin directory, following filesystem links first. In hosts that namespace skills, select this plugin's skill identity from the catalog rather than guessing a namespace spelling. The owner's request for this composed workflow includes use of its explicit-only companion skills.
+
+The `dev-flow` directory is the complete installable unit: its companion skills, references, and license notices travel with it. Load companions from these paths even if the host lists only the main entrypoint. Do not search a separate global install for them.
 
 ## User-selected workflow
 
@@ -39,6 +41,7 @@ Use the latest message together with the active task, existing artifacts, and ea
 | Implement an existing issue or approved spec | Read it and its dependencies; fill only material gaps | Merged implementation of the requested scope |
 | Continue this workflow, repair its CI, or resolve its review findings | Reconcile the current branch/PR and resume the earliest unsatisfied gate | Preserve the existing stopping point |
 | Review an existing diff or PR only | `code-review` | Findings; no fixes or merge unless requested |
+| Prepare a goal or handoff for an approved ticket | Compile the execution contract in [execution context](references/execution.md) | Return the contract; do not implement or launch another task |
 | A standalone CI repair, local edit, or merge request | Perform the named stage with its applicable gates | The explicitly requested outcome; do not backfill an entire process |
 | Status question during delivery | Report current evidence | Continue the active workflow unless the user pauses it |
 
@@ -85,7 +88,9 @@ Only work tickets included in the user's agreed delivery scope. A request to imp
 
 ## Develop and land
 
-Read [references/delivery.md](references/delivery.md) when entering branch/PR creation, implementation, CI repair, review, or merge. It defines the evidence needed for each gate and how to resume after changes.
+Read [references/delivery.md](references/delivery.md) when entering branch/PR creation, implementation, CI repair, review, or merge. It defines the evidence needed for each gate and how to resume after changes. Follow [delegation](references/delegation.md) to assign concrete implementation and required review to the host's native subagents.
+
+The parent owns user confirmations, tracker actions, branch/PR setup, integration, commits, pushes, CI, merge, and cleanup. Assign one approved unblocked ticket to an implementation subagent with an explicit workspace and scope; it implements, checks behavior, and returns evidence. Validate its actual diff before integrating. When review is required after CI, dispatch independent Standards and Spec reviewers. Send needed fixes back to the implementer. Do not run simultaneous writers in a shared worktree or turn subagent delegation into a new user-visible task.
 
 Code review is conditional: skip the automatic `code-review` stage for small, bounded feature changes and UI-only changes. Classify the actual diff using the criteria in the delivery reference. This exemption does not skip relevant checks, CI, or user merge confirmation. An explicit request to review still runs the review.
 
@@ -94,9 +99,9 @@ The delivery cycle is:
 ```text
 requirement agreement -> spec draft -> similar-issue check -> publish spec
   -> proposed tickets -> USER CONFIRMS SPLIT
-  -> publish tickets -> branch -> implementation + draft PR
+  -> publish tickets -> branch -> implementation subagent -> parent integrates + PR
   -> local checks -> push -> CI -> classify review requirement
-  -> small feature or UI-only? skip review : code-review
+  -> small feature or UI-only? skip review : independent review subagents
   -> findings? fix -> checks -> push -> CI -> reclassify/review as needed
   -> ready PR + evidence -> USER CONFIRMS MERGE -> guarded merge
   -> verify MERGED -> delete eligible remote/local source branches
@@ -107,6 +112,8 @@ similar-issue check -> plausible overlap? -> USER DECIDES before publishing
 Create a draft PR as soon as the branch has a meaningful checked commit; do not manufacture an empty commit to create one before development. Required review follows passing CI. Every fix that changes the PR head must pass CI and have its review eligibility reassessed; run review again when the updated diff requires it.
 
 ## Resume and finish
+
+Read [execution context](references/execution.md) when marking a final spec, transferring an approved ticket, recovering partial work, or reporting a completed delivery. Use `SPEC READY` to identify the latest agreed source. Normal work stays in this task; an execution contract is optional when crossing a context boundary, not another mandatory stage after tickets. At handoff or completion, report acceptance criteria with evidence and distinguish ready-for-merge from actually merged.
 
 Keep a compact checkpoint at stage changes and before a handoff in the task's durable context or existing local scratch convention. Record the requested outcome and stopping point, requirement agreement, similar-issue search candidates and user decisions or pending question, the approved ticket breakdown or pending split question, source spec, ticket links/dependencies, repository/worktree, branch/base, PR URL, current head SHA, CI results/run links, reviewed head/base and findings, merge confirmation for that PR/head or its pending question, and the next action or blocker. Link authoritative artifacts instead of copying their full bodies. Keep credentials out of checkpoints.
 
