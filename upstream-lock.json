@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "ref": "main",
+  "commit": "3cca18b368ae95cdbdebbff572ccafa662551015",
+  "retrievedOn": "2026-09-09",
+  "files": [
+    { "path": "LICENSE", "gitBlobSha": "f1dd2c09108dde1a5f56097cee8461b3ea834499" },
+    { "path": "skills/productivity/grilling/SKILL.md", "gitBlobSha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3" },
+    { "path": "skills/productivity/grilling/agents/openai.yaml", "gitBlobSha": "ddbdb96139c0c1dfe6bca698f39d0465674b8a39" },
+    { "path": "skills/engineering/to-spec/SKILL.md", "gitBlobSha": "3f52599ae2a4347aee5a07432c2707518e691a7f" },
+    { "path": "skills/engineering/to-spec/agents/openai.yaml", "gitBlobSha": "549e6f76f020a1b9ba65f52ccda336566ee6222a" },
+    { "path": "skills/engineering/to-tickets/SKILL.md", "gitBlobSha": "e868c831fcfb1e124e010bcdf84a429ec879160f" },
+    { "path": "skills/engineering/to-tickets/agents/openai.yaml", "gitBlobSha": "24605a5db64e4fc750b999aa94aea126bee814ee" },
+    { "path": "skills/engineering/code-review/SKILL.md", "gitBlobSha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4" },
+    { "path": "skills/engineering/code-review/agents/openai.yaml", "gitBlobSha": "9076774ba327f49068db9273feceda03bfe940fa" }
+  ]
+}

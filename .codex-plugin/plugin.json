@@ -1,0 +1,24 @@
+{
+  "name": "dev-flow",
+  "version": "0.1.0",
+  "description": "Requirement routing and delivery through issues, CI, review, and merge, with four bundled Matt Pocock skills adapted for Codex.",
+  "author": {
+    "name": "YinFengWindy",
+    "url": "https://github.com/YinFengWindy"
+  },
+  "homepage": "https://github.com/YinFengWindy/dev-flow",
+  "repository": "https://github.com/YinFengWindy/dev-flow",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Dev Flow",
+    "shortDescription": "Requirements to reviewed and merged pull requests.",
+    "longDescription": "Routes intent and coordinates requirement agreement, specs, tickets, implementation, CI, independent review, repairs, and merge. Waits for user confirmation of ticket breakdown and final PR merge. Includes grilling, to-spec, to-tickets, and code-review adapted from a pinned upstream Matt Pocock revision. Project rules remain in AGENTS.md.",
+    "developerName": "YinFengWindy",
+    "category": "Coding",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Use dev-flow for this request. Wait for my confirmation of the ticket breakdown and final PR merge."
+    ]
+  }
+}

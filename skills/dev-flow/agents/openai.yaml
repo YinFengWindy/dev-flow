@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dev Flow"
+  short_description: "Route requirements through issues, CI, review, and merge"
+  default_prompt: "Use $dev-flow to clarify this request and deliver it through issues, implementation, CI, and review. Wait for my confirmation of the ticket breakdown and again before merging the finished PR."
+policy:
+  allow_implicit_invocation: true
